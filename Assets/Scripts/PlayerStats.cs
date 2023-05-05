@@ -7,26 +7,26 @@ public class PlayerStats : MonoBehaviour
     private float _maxHealth = 100f;
 
     public float CurrentHealth { get; private set; }
-    public event UnityAction<float> OnHealthChange;
+    public event UnityAction<float> HealthChange;
 
     private void Start()
     {
         CurrentHealth = _maxHealth;
     }
 
-    public void AddHealth(float health)
+    public void Heal(float health)
     {
         CurrentHealth += health;
         CurrentHealth = Mathf.Clamp(CurrentHealth, _minHealth, _maxHealth);
 
-        OnHealthChange?.Invoke(CurrentHealth);
+        HealthChange?.Invoke(CurrentHealth);
     }
 
-    public void RemoveHealth(float health)
+    public void Damage(float damage)
     {
-        CurrentHealth -= health;
+        CurrentHealth -= damage;
         CurrentHealth = Mathf.Clamp(CurrentHealth, _minHealth, _maxHealth);
 
-        OnHealthChange?.Invoke(CurrentHealth);
+        HealthChange?.Invoke(CurrentHealth);
     }
 }
