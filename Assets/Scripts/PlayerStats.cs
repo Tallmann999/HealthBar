@@ -1,23 +1,32 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerStats : MonoBehaviour
 {
-    public float MaxHealth { get; private set; } = 100f;
+    private float _minHealth = 0f;
+    private float _maxHealth = 100f;
 
+    public float CurrentHealth { get; private set; }
     public event UnityAction<float> OnHealthChange;
+
+    private void Start()
+    {
+        CurrentHealth = _maxHealth;
+    }
 
     public void AddHealth(float health)
     {
-        MaxHealth += health;
-        OnHealthChange?.Invoke(MaxHealth);
+        CurrentHealth += health;
+        CurrentHealth = Mathf.Clamp(CurrentHealth, _minHealth, _maxHealth);
+
+        OnHealthChange?.Invoke(CurrentHealth);
     }
 
     public void RemoveHealth(float health)
     {
-        MaxHealth -= health;
-        OnHealthChange?.Invoke(MaxHealth);
+        CurrentHealth -= health;
+        CurrentHealth = Mathf.Clamp(CurrentHealth, _minHealth, _maxHealth);
+
+        OnHealthChange?.Invoke(CurrentHealth);
     }
 }

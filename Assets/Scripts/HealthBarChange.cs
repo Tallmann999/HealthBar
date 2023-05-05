@@ -13,7 +13,7 @@ public class HealthBarChange : MonoBehaviour
 
     private void Start()
     {
-        _maxHealhValue = _player.MaxHealth;
+        _maxHealhValue = _player.CurrentHealth;
     }
 
     private void OnEnable()
@@ -42,7 +42,8 @@ public class HealthBarChange : MonoBehaviour
 
         while (_healthBarSlider.value != healthPercent)
         {
-            _healthBarSlider.value = Mathf.MoveTowards(_healthBarSlider.value, healthPercent, _stepSize * Time.deltaTime);
+            _healthBarSlider.value = Mathf.MoveTowards
+                (_healthBarSlider.value, healthPercent, _stepSize * Time.deltaTime);
             yield return null;
         }
     }
